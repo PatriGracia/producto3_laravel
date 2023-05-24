@@ -6,6 +6,7 @@ use App\Models\Acto;
 use App\Models\Documentacion;
 use App\Models\Inscritos;
 use App\Models\Lista_Ponentes;
+use App\Models\Tipo_acto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,7 +26,7 @@ class ActoController extends Controller
         $documents = Documentacion::where('Id_persona', '=', $id)->get();
 
         if($tipo_usuario == 1){
-            return "eres admin";
+            return view('menu-admin/adminEvents', compact('listaActos', 'listaActosInscritos', 'listaActosPonentes'));
         }elseif($tipo_usuario == 2){
             return view('menu-usuario/usuario', compact('listaActos', 'listaActosInscritos', 'listaActosPonentes'));
         }else{
@@ -64,5 +65,10 @@ class ActoController extends Controller
         $acto = Acto::where('Id_acto', '=', $request->input('id_acto'))->first();
         return view('events/showEvent', compact('acto'));
         
+    }
+
+    public static function getTipo_acto(){
+        $tipos = Tipo_acto::all();
+        return $tipos;
     }
 }

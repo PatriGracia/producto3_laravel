@@ -53,7 +53,7 @@ class LoginController extends Controller {
 
                 if($usuarioLog->Id_tipo_usuario == 1){
                     Auth::login($usuarioLog);
-                    return redirect(route('admin'));
+                    return view('menu-admin/admin');
                 }elseif($usuarioLog->Id_tipo_usuario == 2){
                     Auth::login($usuarioLog);
                     return redirect(route('acto.index'));

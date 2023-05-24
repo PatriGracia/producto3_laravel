@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\PersonaController;
@@ -66,6 +67,11 @@ Route::controller(PerfilController::class)->group(function(){
     Route::post('/modificar', 'modificar')->middleware('auth')->name('perfil.modificar');
 });
 
+Route::controller(AdminController::class)->group(function(){
+    Route::view('/admin', 'menu-admin/admin')->middleware('auth')->name('admin');
+
+    
+});
 /*Route::controller(FullCalendarController::class)->group(function(){
 
     
