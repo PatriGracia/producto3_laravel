@@ -16,8 +16,12 @@
                 @endauth! </h1>
             </div>
             <div class="col-auto d-flex">
-                <button class="btn btn-primary perfil"> Perfil </button> 
-                <button id="logoutButton" class="btn btn-primary log-out"> Log Out </button>
+                <a href="{{route('perfil.index')}}">
+                    <button class="btn btn-primary perfil"> Perfil </button> 
+                </a> 
+                <a href="{{route('logout')}}">
+                    <button class="btn btn-primary log-out" id="logoutButton">Log Out</button>
+                </a>
             </div>
         </div>
     </div>
@@ -50,19 +54,19 @@
 
                     <tr>
                         @php
-                            $datoIns = App\Http\Controllers\PonenteController::datoInscribir($acto->Id_acto);
+                            $datoIns = App\Http\Controllers\ActoController::datoInscribir($acto->Id_acto);
                             
                         @endphp
                         
                         @if ($datoIns == null) 
-                            <form method="POST" action="{{route('ponente.inscribirDesinscribir')}}">
+                            <form method="POST" action="{{route('acto.inscribirDesinscribir')}}">
                                 @csrf
                                 <input name="id_acto" type="hidden" value="{{$acto->Id_acto}}">
                                 <input name="id_persona" type="hidden" value="{{Auth::user()->Id_Persona}}">
                                 <button type="submit" name="inscribirDesinscribir" value="inscribirse" class="btn btn-warning">Inscribirse</button>
                             </form>  
                         @else
-                            <form method="POST" action="{{route('ponente.inscribirDesinscribir')}}">
+                            <form method="POST" action="{{route('acto.inscribirDesinscribir')}}">
                                 @csrf
                                 <input name="id_acto" type="hidden" value="{{$acto->Id_acto}}">
                                 <input name="id_persona" type="hidden" value="{{Auth::user()->Id_Persona}}">
@@ -74,9 +78,9 @@
                     </tr>
                 </tbody>
             </table>
-            <form action="{{route('ponente.index')}}" method="GET">
+            <form action="{{route('acto.index')}}" method="GET">
                 @csrf 
-               <button type="submit" name="ponente.index" class="btn btn-light">Volver</button>
+               <button type="submit" name="acto.index" class="btn btn-light">Volver</button>
             </form>
         </div>
     </div>
