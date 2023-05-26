@@ -32,36 +32,11 @@
             <div class="menu-admin">
             
                 <a href="{{route('acto.index')}}" class="btn btn-primary boton-admin">Gestionar eventos</a>
-                <a href="ponentes.php" class="btn btn-primary boton-admin">Gestionar ponentes</a>
+                <a href="" class="btn btn-primary boton-admin">Gestionar ponentes</a>
                 <a href="tipos_eventos.php" class="btn btn-primary boton-admin">Gestionar tipos de eventos</a>
-                <a href="asistentes.php" class="btn btn-primary boton-admin">Gestionar asistentes</a>
             </div>
         </div>
     </div>
 </div>
-
- <!-- Agrega el botón o enlace para abrir el modal 
- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#miModal">
-    Abrir Modal
-</button> -->
-
-<!-- Agrega el contenido del modal 
-<div class="modal" id="miModal">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Título del Modal</h5>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <p>Contenido del Modal</p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
-            </div>
-        </div>
-    </div>
-</div> -->
 
 @endsection

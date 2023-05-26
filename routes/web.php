@@ -55,10 +55,16 @@ Route::controller(ActoController::class)->group(function(){
     Route::get('/acto', 'index')->middleware('auth')->name('acto.index');
 
     Route::post('/acto/showEvent', 'showEvent')->middleware('auth')->name('acto.showEvent');
+    
     Route::post('/acto/datoInsc', 'datoInscribir')->middleware('auth')->name('acto.datoInscribir');
 
     Route::post('/acto/inscribirDesinscribir', 'inscribirDesinscribir')->middleware('auth')->name('acto.inscribirDesinscribir');
 
+    Route::post('/acto/create', 'create')->middleware('auth')->name('acto.create');
+
+    Route::post('/acto/edit', 'edit')->middleware('auth')->name('acto.edit');
+
+    Route::post('/acto/delete', 'delete')->middleware('auth')->name('acto.delete');
 });
 
 Route::controller(PerfilController::class)->group(function(){
@@ -70,6 +76,7 @@ Route::controller(PerfilController::class)->group(function(){
 Route::controller(AdminController::class)->group(function(){
     Route::view('/admin', 'menu-admin/admin')->middleware('auth')->name('admin');
 
+    Route::view('/adminEvents', 'menu-admin/adminEvents')->middleware('auth')->name('adminEvents');
     
 });
 /*Route::controller(FullCalendarController::class)->group(function(){
