@@ -56,10 +56,16 @@ Route::controller(ActoController::class)->group(function(){
     Route::get('/acto', 'index')->middleware('auth')->name('acto.index');
 
     Route::post('/acto/showEvent', 'showEvent')->middleware('auth')->name('acto.showEvent');
+    
     Route::post('/acto/datoInsc', 'datoInscribir')->middleware('auth')->name('acto.datoInscribir');
 
     Route::post('/acto/inscribirDesinscribir', 'inscribirDesinscribir')->middleware('auth')->name('acto.inscribirDesinscribir');
 
+    Route::post('/acto/create', 'create')->middleware('auth')->name('acto.create');
+
+    Route::post('/acto/edit', 'edit')->middleware('auth')->name('acto.edit');
+
+    Route::post('/acto/delete', 'delete')->middleware('auth')->name('acto.delete');
 });
 
 Route::controller(PonenteController::class)->group(function(){
@@ -87,44 +93,3 @@ Route::controller(AdminController::class)->group(function(){
 
     
 });
-/*Route::controller(FullCalendarController::class)->group(function(){
-
-    
-    Route::get('/listarActos', 'listarActos')->name('listarActos');;
-
-    Route::get('calendar-event', 'index');
-
-    Route::post('calendar-crud-ajax', 'calendarEvents');
-
-    //Route::get('personas/create', 'create')->name('personas.create');
-
-    //Route::get('personas/{id}', 'show')->name('personas.show');
-});*/
-
-
-//Route::get('registro', [RegistroController::class, 'index'])->name('registro');
-
-//Route::get('login', [LoginController::class, 'index'])->name('login');
-
-
-
-
-
-
-// Route::get('users/{id}', function ($id) {
-    
-// });
-// Route::get('users/{id}/{Nombre?}', function ($id, $nombre) {
-    
-// });
-
-// Route::get('/registro', function () {
-//     return view('registro');
-// });
-
-//Route::get('/', [WebController::class, 'inicio']);
-
-//Route::get('/registro', [RegistroController::class, 'registro']);
-
-//Route::get('/login', [LoginController::class, 'login']);
-

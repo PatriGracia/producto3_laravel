@@ -10,18 +10,31 @@
 
 @section('content')
 
-            <div class="col-auto d-flex">
-                <h1 style="color:rgb(136, 136, 183);">¡Bienvenido/a @auth
-                    {{Auth::user()->Username}}
-                @endauth! </h1>
-            </div>
-            <div class="col-auto d-flex">
-                <a href="{{route('perfil.index')}}">
-                    <button class="btn btn-primary perfil"> Perfil </button> 
-                </a> 
-                <a href="{{route('logout')}}">
-                    <button class="btn btn-primary log-out" id="logoutButton">Log Out</button>
-                </a>
+    <div class="col-auto d-flex">
+        <h1 style="color:rgb(136, 136, 183);">¡Bienvenido/a @auth
+            {{Auth::user()->Username}}
+        @endauth! </h1>
+    </div>
+    <div class="col-auto d-flex">
+        <a href="{{route('perfil.index')}}">
+            <button class="btn btn-primary perfil"> Perfil </button> 
+        </a> 
+        <a href="{{route('logout')}}">
+            <button class="btn btn-primary log-out" id="logoutButton">Log Out</button>
+        </a>
+    </div>
+    </div>
+    </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Administración de eventos</h2>
+                <p>Aquí puedes gestionar los eventos, ponentes, tipos de eventos y asistentes.</p>
+                <div class="menu-admin">
+                
+                    <a href="{{route('acto.index')}}" class="btn btn-secondary boton-admin">Gestionar eventos</a>
+                    <a href="{{route('ponente.index')}}" class="btn btn-primary boton-admin">Gestionar ponentes</a>
+                    <a href="{{route('tipo_acto.index')}}" class="btn btn-primary boton-admin">Gestionar tipos de eventos</a>
+                </div>
             </div>
         </div>
     </div>
@@ -86,11 +99,6 @@
             </div>
             
     </div>
-<!-- BOTÓN VOLVER -->
-    <form action="{{route('admin')}}" method="GET">
-        @csrf 
-        <button type="submit" name="acto.index" class="btn btn-light" style="margin-left: 200px">Volver</button>
-    </form>
 
     @csrf 
     <button type="submit" name="" class="btn btn-success" data-toggle="modal" data-target="#nuevoActo" style="margin-left: 1200px; margin-top: -65px">Nuevo Acto
@@ -127,7 +135,7 @@
                                     $tipos = App\Http\Controllers\Tipo_actoController::getTipo_acto(); 
                                 @endphp
                                 @foreach ($tipos as $tipo)
-                                    <option value={{$tipo->Id_tipo_acto}}>{{$tipo->Descripcion}}</option>
+                                    <option value= {{ $tipo->Id_tipo_acto }} > {{ $tipo->Descripcion }}</option>
                                 @endforeach
                             </select>
                         </div>

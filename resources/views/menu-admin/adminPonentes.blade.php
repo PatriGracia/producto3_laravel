@@ -35,7 +35,6 @@
                 <a href="{{route('acto.index')}}" class="btn btn-primary boton-admin">Gestionar eventos</a>
                 <a href="{{route('ponente.index')}}" class="btn btn-secondary boton-admin">Gestionar ponentes</a>
                 <a href="{{route('tipo_acto.index')}}" class="btn btn-primary boton-admin">Gestionar tipos de eventos</a>
-                <a href="asistentes.php" class="btn btn-primary boton-admin">Gestionar asistentes</a>
             </div>
         </div>
     </div>
