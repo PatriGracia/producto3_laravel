@@ -1,13 +1,14 @@
 <?php
 
-use App\Http\Controllers\WebController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\PersonaController;
 use App\Http\Controllers\ActoController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\PonenteController;
-
+use App\Http\Controllers\TipoactoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -51,16 +52,41 @@ Route::controller(LoginController::class)->group(function(){
     Route::get('/logout', 'logout')->name('logout');
 });
 
-Route::controller(PonenteController::class)->group(function(){
-    Route::get('/ponente', 'index')->middleware('auth')->name('ponente.index');
+Route::controller(ActoController::class)->group(function(){
+    Route::get('/acto', 'index')->middleware('auth')->name('acto.index');
 
-    Route::post('/ponente/showEvent', 'showEvent')->middleware('auth')->name('ponente.showEvent');
-    Route::post('/ponente/datoInsc', 'datoInscribir')->middleware('auth')->name('ponente.datoInscribir');
+    Route::post('/acto/showEvent', 'showEvent')->middleware('auth')->name('acto.showEvent');
+    Route::post('/acto/datoInsc', 'datoInscribir')->middleware('auth')->name('acto.datoInscribir');
 
-    Route::post('/ponente/inscribirDesinscribir', 'inscribirDesinscribir')->middleware('auth')->name('ponente.inscribirDesinscribir');
+    Route::post('/acto/inscribirDesinscribir', 'inscribirDesinscribir')->middleware('auth')->name('acto.inscribirDesinscribir');
 
 });
 
+Route::controller(PonenteController::class)->group(function(){
+    Route::get('/ponente', 'index')->middleware('auth')->name('ponente.index');
+    Route::post('/ponente/update', 'update')->middleware('auth')->name('ponente.update');
+    Route::post('/ponente/delete', 'destroy')->middleware('auth')->name('ponente.delete');
+    Route::post('/ponente/store', 'store')->middleware('auth')->name('ponente.store');
+});
+
+Route::controller(TipoactoController::class)->group(function(){
+    Route::get('/tipo_acto', 'index')->middleware('auth')->name('tipo_acto.index');
+    Route::post('/tipo_acto/update', 'update')->middleware('auth')->name('tipo_acto.update');
+    Route::post('/tipo_acto/delete', 'destroy')->middleware('auth')->name('tipo_acto.delete');
+    Route::post('/tipo_acto/store', 'store')->middleware('auth')->name('tipo_acto.store');
+});
+
+Route::controller(PerfilController::class)->group(function(){
+    Route::get('/perfil', 'index')->middleware('auth')->name('perfil.index');
+
+    Route::post('/modificar', 'modificar')->middleware('auth')->name('perfil.modificar');
+});
+
+Route::controller(AdminController::class)->group(function(){
+    Route::view('/admin', 'menu-admin/admin')->middleware('auth')->name('admin');
+
+    
+});
 /*Route::controller(FullCalendarController::class)->group(function(){
 
     

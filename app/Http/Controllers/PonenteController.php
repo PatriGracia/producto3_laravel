@@ -3,57 +3,82 @@
 namespace App\Http\Controllers;
 
 use App\Models\Acto;
-use App\Models\Documentacion;
-use App\Models\Inscritos;
-use App\Models\Lista_Ponentes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
+
+use App\Models\Usuario;
+use App\Models\Persona;
 
 class PonenteController extends Controller
 {
     public function index(){
 
-        $id= Auth::user()->Id_Persona;
-        $query1 = Inscritos::select('id_acto')->where('Id_persona','=', $id)->get();
-        $query2 = Lista_Ponentes::select('Id_acto')->where('Id_persona','=', $id)->get();
+        $users = Usuario::select('Usuarios.Id_usuario as id', 'Usuarios.Username as username', 'Personas.Nombre as nombre', 'Personas.Apellido1 as apellido1', 'Personas.Apellido2 as apellido2')
+            ->join('Personas', 'Usuarios.Id_Persona', '=', 'Personas.Id_persona')
+            ->where('Usuarios.Id_tipo_usuario', 3)
+            ->get();
 
-        $listaActos = Acto::whereNotIn('Id_acto', $query1)->whereNotIn('Id_acto', $query2)->orderBy('Fecha', 'asc')->get();
-        $listaActosInscritos = Acto::whereIn('Id_acto', $query1)->orderBy('Fecha', 'asc')->get();
-        $listaActosPonentes = Acto::whereIn('Id_acto', $query2)->orderBy('Fecha', 'asc')->get();
-
-        $documents = Documentacion::where('Id_persona', '=', $id)->get();
-
-        return view('menu-ponente/ponente', compact('listaActos', 'listaActosInscritos', 'listaActosPonentes', 'documents'));
+        return view('menu-admin/adminPonentes', compact('users'));
     }
 
-    public function showEvent(Request $request){
-        $acto = Acto::where('Id_acto', '=', $request->input('id_acto'))->first();
-        return view('menu-ponente/showEventPonente', compact('acto'));
+    public function update(Request $request){
+
+        DB::table('Usuarios as u')
+            ->join('Personas as p', 'u.Id_Persona', '=', 'p.Id_persona')
+            ->where('u.Id_usuario', $request->id_persona)
+            ->update([
+                'u.Username' => $request->username,
+                'p.Nombre' => $request->nombre,
+                'p.Apellido1' => $request->apellido1,
+                'p.Apellido2' => $request->apellido2
+            ]);
+
+        $users = Usuario::select('Usuarios.Id_usuario as id', 'Usuarios.Username as username', 'Personas.Nombre as nombre', 'Personas.Apellido1 as apellido1', 'Personas.Apellido2 as apellido2')
+            ->join('Personas', 'Usuarios.Id_Persona', '=', 'Personas.Id_persona')
+            ->where('Usuarios.Id_tipo_usuario', 3)
+            ->get();
+
+        return view('menu-admin/adminPonentes', compact('users'));
+
     }
 
-    public static function datoInscribir($id){
-        $user = Auth::user()->Id_Persona;
-        $datoIns = Inscritos::where('Id_persona', '=', $user)->where('id_acto', '=', $id)->first();
+    public function destroy(Request $request){
+        $user = Usuario::find($request->id_persona);
+        $user->delete();
+        DB::table('Personas')->where('Id_persona', $request->id_persona)->delete();
 
-        return $datoIns;
+        $users = Usuario::select('Usuarios.Id_usuario as id', 'Usuarios.Username as username', 'Personas.Nombre as nombre', 'Personas.Apellido1 as apellido1', 'Personas.Apellido2 as apellido2')
+            ->join('Personas', 'Usuarios.Id_Persona', '=', 'Personas.Id_persona')
+            ->where('Usuarios.Id_tipo_usuario', 3)
+            ->get();
+
+        return view('menu-admin/adminPonentes', compact('users'));
     }
 
-    public function inscribirDesinscribir(Request $request){
-        if($request->input('inscribirDesinscribir') === 'inscribirse'){
-            $inscrito = new Inscritos;
-            $inscrito->Id_persona = $request->input('id_persona');
-            $inscrito->id_acto = $request->input('id_acto');
-            $inscrito->Fecha_inscripcion = date('Y-m-d H:i:s');
-            $inscrito->save();
-            echo "<script>alert('Te has inscrito correctamente')</script>";
-        }else{
-            $delete = Inscritos::where('Id_persona', '=', $request->input('id_persona'))->where('id_acto', '=', $request->input('id_acto'))->delete();
-            echo "<script>alert('Ya no estás inscrito')</script>";
-        }
+    public function store(Request $request){
+        $id_persona = DB::table('Personas')->insertGetId([
+            'Nombre' => $request->nombre,
+            'Apellido1' => $request->apellido1,
+            'Apellido2' => $request->apellido2
+        ]);
 
+        DB::table('Usuarios')->insert([
+            'Username' => $request->username,
+            'Password' => $request->password,
+            'Id_Persona' => $id_persona,
+            'Id_tipo_usuario' => $request->id_tipo_usuario
+        ]);
 
-        $acto = Acto::where('Id_acto', '=', $request->input('id_acto'))->first();
-        return view('menu-ponente/showEventPonente', compact('acto'));
-        
+        $users = Usuario::select('Usuarios.Id_usuario as id', 'Usuarios.Username as username', 'Personas.Nombre as nombre', 'Personas.Apellido1 as apellido1', 'Personas.Apellido2 as apellido2')
+            ->join('Personas', 'Usuarios.Id_Persona', '=', 'Personas.Id_persona')
+            ->where('Usuarios.Id_tipo_usuario', 3)
+            ->get();
+
+        return view('menu-admin/adminPonentes', compact('users'));
     }
+
+
+
 }

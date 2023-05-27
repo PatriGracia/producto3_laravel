@@ -3,6 +3,10 @@ body {
     padding: 0;
 }
 
+a {
+    text-decoration: none;
+}
+
 .header {
     background-color: beige;
     padding: 10px 50px;

@@ -16,5 +16,11 @@ class Usuario extends Authenticatable
     public $timestamps = false;
     //si solo es de consulta no hace falta especificar llave primaria
     //protected $primaryKey = 'Id_usuario';
+    
+    public function persona()
+    {
+        return $this->belongsTo(Persona::class, 'Id_Persona', 'Id_persona');
+    }
+
 }
 

@@ -17,8 +17,12 @@
                 @endauth! </h1>
             </div>
             <div class="col-auto d-flex">
-                <button class="btn btn-primary perfil"> Perfil </button> 
-                <button id="logoutButton" class="btn btn-primary log-out"> Log Out </button>
+                <a href="{{route('perfil.index')}}">
+                    <button class="btn btn-primary perfil"> Perfil </button> 
+                </a> 
+                <a href="{{route('logout')}}">
+                    <button class="btn btn-primary log-out" id="logoutButton">Log Out</button>
+                </a>
             </div>
         </div>
     </div>
@@ -42,7 +46,7 @@
                                     <td>{{ $listaActo->Titulo }}</td>
                                     <td>{{ $listaActo->Fecha }}</td>
                                     <td>{{ $listaActo->Hora }}</td>
-                                    <td><form action="{{route('ponente.showEvent')}}" method="POST">
+                                    <td><form action="{{route('acto.showEvent')}}" method="POST">
                                         @csrf
                                         <input name="id_acto" type="hidden" value="{{$listaActo->Id_acto}}">
                                         <button type="submit" class="btn btn-light">Ver evento</button>
@@ -55,7 +59,7 @@
                                     <td>{{ $listaActosInscrito->Titulo }}</td>
                                     <td>{{ $listaActosInscrito->Fecha }}</td>
                                     <td>{{ $listaActosInscrito->Hora }}</td>
-                                    <td><form action="{{route('ponente.showEvent')}}" method="POST">
+                                    <td><form action="{{route('acto.showEvent')}}" method="POST">
                                         @csrf
                                         <input name="id_acto" type="hidden" value="{{$listaActosInscrito->Id_acto}}">
                                         <button type="submit" class="btn btn-light">Ver evento</button>
@@ -68,7 +72,7 @@
                                     <td>{{ $listaActosPonente->Titulo }}</td>
                                     <td>{{ $listaActosPonente->Fecha }}</td>
                                     <td>{{ $listaActosPonente->Hora }}</td>
-                                    <td><form action="{{route('ponente.showEvent')}}" method="POST">
+                                    <td><form action="{{route('acto.showEvent')}}" method="POST">
                                         @csrf
                                         <input name="id_acto" type="hidden" value="{{$listaActosPonente->Id_acto}}">
                                         <button type="submit" class="btn btn-light">Ver evento</button>

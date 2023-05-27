@@ -13,4 +13,9 @@ class Persona extends Model
 
     protected $primaryKey = 'Id_Persona';
     public $timestamps = false;
+
+    public function usuario()
+    {
+        return $this->hasOne(Usuario::class, 'Id_persona', 'Id_Persona');
+    }
 }
